@@ -195,7 +195,7 @@ void takeColorReadingTemp()
  */
 void checkEthernet()
 {
-  EthernetClient client = server.available(); //listen for incoming clients
+  WiFiClient client = server.available(); //listen for incoming clients
   if (client) {                               //If a request has been received
   
     boolean currentLineIsBlank = true; //variable for checking if end of request found.
@@ -241,7 +241,7 @@ void checkEthernet()
 /*
  * sendWebpage(aClient) - Serves the webpage to the given network client
  */ 
-void sendWebpage(EthernetClient aClient)
+void sendWebpage(WiFiClient aClient)
 {
 //###########################
 //####### HTTP HEADER #######
@@ -303,11 +303,13 @@ void sendWebpage(EthernetClient aClient)
  */
 void setColor(int aRed, int aGreen, int aBlue)
 {
+#if defined USE_RGB_LED  
   analogWrite(kRedPin, 255-aRed);     //write the current red value to the LED
                                       //(we use a common anode LED so full on is analogWrite(0)
                                       //and full off analogWrite(255) this is why 255-ared)
   analogWrite(kGreenPin, 255-aGreen); //write the current green value to the LED
   analogWrite(kBluePin, 255-aBlue);   //write the current blue value to the LED
+#endif  
 }
 
 /*
