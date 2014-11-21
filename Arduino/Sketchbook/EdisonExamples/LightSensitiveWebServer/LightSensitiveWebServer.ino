@@ -7,8 +7,8 @@
  with an example that relies on only these. We'll create a simple web server 
  that will deliver a page with sensor readings (light and temperature) and 
  change the background color of the page based on the light intensity. To do 
- this simply wire up the IOTM-IN circuit (page 6), upload the code, plug your 
- board into your local network and open up the page in a web browser. 
+ this simply wire up the light sensor to A0 and the temperature sensor to A1, 
+ upload the code and open up the page in a web browser. 
 
  Based on WebServer Example Code
  created 18 Dec 2009 by David A. Mellis -- modified 4 Sep 2010 by 
@@ -22,16 +22,16 @@
 
 //char ssid[] = "yourNetwork"; //  your network SSID (name) 
 //char pass[] = "secretPassword";    // your network password (use for WPA, or use as key for WEP)
-char ssid[] = "BellaMacchina"; //  your network SSID (name) 
-char pass[] = "D61445FB99";    // your network password (use for WPA, or use as key for WEP)
+char ssid[] = "DoESLiverpool"; //  your network SSID (name) 
+char pass[] = "decafbad00";    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;
 
 //################ PINS USED ######################
-const int kLightSensorPin = A2;  //Light Sensor is connected to 
+const int kLightSensorPin = A0;  //Light Sensor is connected to 
                                  //analog pin ...
-const int kTempSensorPin = A3;   //Temperature Sensor is connected to 
+const int kTempSensorPin = A1;   //Temperature Sensor is connected to 
                                  //analog pin ...
 
 //################ VARIABLES ################
@@ -56,14 +56,12 @@ int blue = 0;  //current Blue reading (between 0 and 255)
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("Setting Up IOTC-01");
   Serial.println(".:Web Server:. -- (local)");
   
   setupCircuit();  //sets up the connected circuit
-  testCircuit();   //tests the connected circuit
   setupNetwork();  //sets up the boards WiFi connection
   
-  Serial.println("IOTC-01 Code Running");
+  Serial.println("Light-sensitive Web Server Running");
   Serial.print("    Visit http://");
   Serial.print(WiFi.localIP());
   Serial.print(":");
@@ -78,8 +76,7 @@ void loop()
 {
   takeColorReadingLight();     //take a color reading based on the light intensity (stored in red,green,blue)
 //  takeColorReadingTemp();    //take a color reading based on the temperature intensity (stored in red,green,blue)
-  setColor(red, green, blue);  //sets the on board LED to the current color (stored in red, green,blue)
-  checkEthernet();             //checks to see if there has been a ethernet request
+  checkNetwork();              //checks to see if there has been a web request
 }
 
 /*
@@ -94,31 +91,6 @@ void setupCircuit()
                                     //are not neccesary but are good practice)
   Serial.println("..Finished..");
 }
-
-/*
- * testCircuit() - this function tests your circuit, turning the LED various 
- * colors and outputting the color it should be to the serial monitor
- */
-void testCircuit()
-{
-  Serial.println("    testCircuit() Started..");
-  
-  Serial.println("      Testing LED");  //Test the LED by cycling through its colors
-  Serial.print("        Red,");
-  setColor(255, 0, 0);     //Set LED to red
-  delay(750);              //wait just under a seconed
-  Serial.print("Green,");
-  setColor(0, 255, 0);     //Set LED to green
-  delay(750);              //wait just under a seconed
-  Serial.print("Blue,");
-  setColor(0, 0, 255);     //Set LED to blue
-  delay(750);              //wait just under a seconed
-  Serial.println("White");
-  setColor(255, 255, 255); //Set the LED to white
-  delay(750);              //wait just under a seconed
-  setColor(0, 0, 0);       //turn the LED off
-  Serial.println("    testCircuit() Finished..");  
-}  
 
 /*
  * setupNetwork() - Sets up your WiFi connection
@@ -177,8 +149,8 @@ void takeColorReadingLight()
  */
 void takeColorReadingTemp()
 {
-  const int readingMax = 650;  //Higest temperature you want to display
-  const int readingMin = 90;   //Lowest temperature you want to display
+  const int readingMax = 700;  //Higest temperature you want to display
+  const int readingMin = 100;  //Lowest temperature you want to display
                                //(these two values can be adjusted for your environment)
   int tempLevel = analogRead(kTempSensorPin);
                                //read the current temperature value into a variable
@@ -190,13 +162,13 @@ void takeColorReadingTemp()
 }
 
 /*
- * checkEthernet() - Checks for an ethernet connection attempt, if 
+ * checkNetwork() - Checks for a web connection attempt, if 
  * one is found a webpage is served up.
  */
-void checkEthernet()
+void checkNetwork()
 {
-  WiFiClient client = server.available(); //listen for incoming clients
-  if (client) {                               //If a request has been received
+  WiFiClient client = server.available();   //listen for incoming clients
+  if (client) {                             //If a request has been received
   
     boolean currentLineIsBlank = true; //variable for checking if end of request found.
     
@@ -253,8 +225,8 @@ void sendWebpage(WiFiClient aClient)
 //###########################
 //#######  WEB PAGE   #######  //to customize change the page details below
 //###########################
-  aClient.println("<html><head>");                              //send html opening
-  aClient.println("  <title>IOTC-01 Web Server</title>");       //send page title
+  aClient.println("<html><head>");                                //send html opening
+  aClient.println("  <title>Light-Sensitive Web Server</title>"); //send page title
   aClient.println("  <meta http-equiv='refresh' content='2'>"); //set the page to auto-refresh every 2 seconds
   aClient.println("</head>");                                   //close the head
   aClient.print("<body bgcolor='#");                            //opens the body and sets the background color to be the current LED
@@ -274,7 +246,7 @@ void sendWebpage(WiFiClient aClient)
        
   aClient.println("<br>");                                        //the page contents change to customize
   aClient.println("<center>");
-  aClient.println("<h2>IOTC-01 Web Server Page</h2>");
+  aClient.println("<h2>Light-sensitive Web Server Page</h2>");
   aClient.println("<br>");
   aClient.println("<br>");
   aClient.print("Current Color: ");
@@ -288,28 +260,16 @@ void sendWebpage(WiFiClient aClient)
   aClient.print(analogRead(kLightSensorPin));                       //send the current light level         
   aClient.println(" (0-1024)<br>");
   aClient.print("Current Temperature: ");
-  float temperature = 
-           (((analogRead(kTempSensorPin) *  .004882814))-0.5)*100;  
-  aClient.print(temperature);                                        //send the current temperature 
-  aClient.println(" degrees<br>");
+  int tempReading = analogRead(kTempSensorPin);  
+  int B=3975;                  // B value of the thermistor
+  float resistance = (float)(1023-tempReading)*10000/tempReading;   // get resistance
+  float temperature=1/(log(resistance/10000)/B+1/298.15)-273.15;    // calc temperature
+  aClient.print(temperature);                                       //send the current temperature 
+  aClient.print(" degrees (raw value: ");
+  aClient.print(tempReading);
+  aClient.println(")");
   aClient.println("</center>");        
-  aClient.println("</body></html>");                                 //close the body and html page
-}
-
-/*
- * setColor(aRed, aGreen, aBlue) - Sets the LED to the supplied RGB
- * color. 
- * aRed,aGreen,aBlue Range: 0-255
- */
-void setColor(int aRed, int aGreen, int aBlue)
-{
-#if defined USE_RGB_LED  
-  analogWrite(kRedPin, 255-aRed);     //write the current red value to the LED
-                                      //(we use a common anode LED so full on is analogWrite(0)
-                                      //and full off analogWrite(255) this is why 255-ared)
-  analogWrite(kGreenPin, 255-aGreen); //write the current green value to the LED
-  analogWrite(kBluePin, 255-aBlue);   //write the current blue value to the LED
-#endif  
+  aClient.println("</body></html>");                                //close the body and html page
 }
 
 /*
