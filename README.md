@@ -97,10 +97,19 @@ FIXME Do we need an install for something on Windows to let us open .7z files?
 
 > <strong>Extra credit:</strong> Using the range of values you could see when hooking up different sensors in the previous exercise, rework the `map` line in the sketch to give the full range of movement of the servo when using a different sensor.
 
+## Using the LCD
+
+ 1. The LCD will let us display two lines of 16 characters.  It communicates with the Edison board via the [I2C protocol](http://en.wikipedia.org/wiki/I%C2%B2C).  Connect the LCD board up to one of the I2C sockets with a ribbon cable.
+ 1. Communicating with the LCD has been abstracted into the rgb_lcd library, so you don't need to worry about using the I2C protocol directly (although that would just need you to read through the datasheet for the LCD to work out what commands to send it).  Open the TimePosixLCD sketch.  File -> EdisonExamples -> TimePosixLCD.
+ 1. The sketch uses the `system`, `fopen`, `fgets` and `fclose` to access the time from the Linux side of the Edison, and then displays it on the LCD.  Upload the sketch to your Edison and you'll have a rather over-engineered electronic clock.
+
+> <strong>Extra credit:</strong> Modify the sketch so that the screen backlight turns green when it's lunchtime or hometime.
+
 # Links
 
 FIXME Link to Grove kit datasheets?
 
+ * [Arduino language reference](http://arduino.cc/en/Reference/HomePage)
  * [The Grove Starter Kit Plus](http://www.seeedstudio.com/wiki/Grove_-_Starter_Kit_V2.0) website, and [the official location for the example code](https://github.com/Seeed-Studio/Sketchbook_Starter_Kit_V2.0)
  * [Edison Arduino expansion board hardware guide](https://communities.intel.com/docs/DOC-23161) - includes details of the jumper settings, pin-out diagram, etc. for the expansion board
  * If you do need to flash your Edison board with a new image, follow the instructions for your operating system below:
