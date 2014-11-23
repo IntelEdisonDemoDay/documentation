@@ -69,7 +69,7 @@ FIXME Do we need an install for something on Windows to let us open .7z files?
 ```
     int led = 13;
 ```
-   Change it to match whichever socket you plugged your LED into.  In our example, that would be 3.
+    Change it to match whichever socket you plugged your LED into.  In our example, that would be 3.
  1. Upload your modified code to your Edison and the LED should start blinking.
 
 > <strong>Extra credit:</strong> Try modifying the values in the `delay` calls to vary how quickly the LED blinks.
@@ -85,8 +85,17 @@ FIXME Do we need an install for something on Windows to let us open .7z files?
 
 > <strong>Extra credit:</strong> Try plugging in the other sensors and see what range of numbers they report.
 
+## Controlling a servo
 
+ 1. Here we'll bring together both input and output in a single example.  Find the servo in your Grove kit.  It's a small black box with a ribbon cable attached.
+ 1. Find the small bag of servo horns - white disc and rods.  Choose one and attach it to the servo.
+ 1. Connect the servo to the socket D3.
+ 1. Because the servo draws a bit more current than the LED we've used so far, we need to provide some extra power to the Edison board.  Plug in an external power supply to the black barrel jack in the corner of the board.
+ 1. Open the Grove_Servo sketch.  File -> Sketchbook -> Sketchbook_Starter_Kit_V2.0 -> Grove_servo
+ 1. Upload it to your Edison.
+ 1. Use the control on the rotary angle sensor to move the servo position.
 
+> <strong>Extra credit:</strong> Using the range of values you could see when hooking up different sensors in the previous exercise, rework the `map` line in the sketch to give the full range of movement of the servo when using a different sensor.
 
 # Links
 
