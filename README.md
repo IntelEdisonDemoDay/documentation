@@ -4,12 +4,10 @@ This repository holds all the information for the [Intel Edison Demo Day](http:/
 
 It collects together all the code, etc. that we'll be using on the day and includes the steps that we'll be running through as we explore the Edison board.
 
-FIXME Explain the different folders, etc.
-
 ## Respository contents
 
-  * Arduino: Example code
-  * Downloads: Arduino programming environment for Edison, relevant drivers, etc.
+  * Arduino/Sketchbook: Example code.  Copy the contents into your Arduino sketchbook folder.
+  * Arduino/IDE_patches: Updates to the Intel Edison Arduino IDE v1.0.4 to fix a couple of small bugs
 
 ## Order of the day
 
@@ -22,8 +20,7 @@ FIXME Explain the different folders, etc.
    - Copy the day's examples, etc. into the right place
    - Hooking up sensors
    - Now control a servo
-   - Using the LCD display (Michael's time example?)
- 
+   - Using the LCD display 
  * 11:30 Break
  * 11:45 Continued Tutorial
    - Talking to the Internet
@@ -33,19 +30,18 @@ FIXME Explain the different folders, etc.
      - Background colour based on sensor input
    - Scraping web pages and talking to APIs
      - Getting the weather forecast from the Met Office
-   - Pushing data to the cloud?  Which cloud?
+   - Pushing data to the cloud.
  * 13:00 Lunch
  * 14:00 Build a demo time
    - Anyone particularly interested in one of the sensors?
    - Is there a web service people would like to use?
-   - 
  * 17:00 Team Demos (Drinks are served)
  * 18:00 End of the day and move to a nearby pub.
 
 
 ## Getting set up
 
- 1. If you haven't already, download the [zip file of all the things you'll need]() FIXME  Once it's downloaded, unzip it (it doesn't matter where to, but somewhere you can find it again - for example, to your Desktop)
+ 1. If you haven't already, download the [zip file of all the things you'll need](https://www.dropbox.com/sh/lwd98qpgqk3yso7/AAAMgd4cuz4PkUWHA8Aj_a14a?dl=0).  Once it's downloaded, unzip it (it doesn't matter where to, but somewhere you can find it again - for example, to your Desktop)
  1. While that downloads we'll unbox the goodies.
  1. Next we'll follow the steps to connect your Edison board and install the software.
     Follow the relevant link for your operating system:
@@ -55,8 +51,7 @@ FIXME Explain the different folders, etc.
 
 FIXME John, do we need any drivers for Mac?
 FIXME John, does the Mac come with ability to open zip files by default?
-FIXME Do we need an install for something on Windows to let us open .7z files?
-    Your Edison boards have already been flashed with the latest image, so you don't need to worry about that.
+    Your Edison boards have already been flashed with the latest image, so you don't need to worry about that.  On Windows, if you need something to open the .7z file containing the Arduino IDE you can find the 7-zip software to install in the 7-zip folder.
 
  1. In the Arduino IDE, open File -> Preferences.  Make a note of the sketchbook location (it's most likely to be an Arduino folder in your home directory)
  1. Copy the contents of the Sketchbook folder in the zip file you unpacked in step 1 into the sketchbook location on your machine.
@@ -104,6 +99,36 @@ FIXME Do we need an install for something on Windows to let us open .7z files?
  1. The sketch uses the `system`, `fopen`, `fgets` and `fclose` to access the time from the Linux side of the Edison, and then displays it on the LCD.  Upload the sketch to your Edison and you'll have a rather over-engineered electronic clock.
 
 > <strong>Extra credit:</strong> Modify the sketch so that the screen backlight turns green when it's lunchtime or hometime.
+
+## Talking to the Internet
+
+Now we'll look at ways to get your Edison board to interact with the Internet.
+
+## Downloading a web page
+
+ 1. Open the WiFiWebClient sketch.  File -> Examples -> WiFi -> WiFiWebClientRepeating.
+ 1. We need to tell it the details of the WiFi network we want to connect to.  Find the lines
+```
+char ssid[] = "yourNetwork";      //  your network SSID (name) 
+char pass[] = "secretPassword";   // your network password
+```
+    And change them to match the network and password for the venue's WiFi.
+ 1. Upload the sketch to your Edison, then open the serial monitor.
+ 1. You'll see it print out its progress as it connects to the WiFi, and then connecting to the server and displaying the response that it receives.
+
+> <strong>Extra credit:</strong> Read through the response that you get from www.google.com and modify the sketch so that it makes the request to the alternate URL that Google tries to redirect you to.
+
+## Being a web server
+
+ 1. Open the LightSensitiveWebServer sketch.  File -> Sketchbook -> EdisonExamples -> LightSensitiveWebServer.
+ 1. Connect the light sensor to socket A0.
+ 1. Connect the temperature sensor to socket A1.
+ 1. Find the `ssid` and `pass` lines in the sketch, and update them to the relevant WiFi network.
+ 1. Upload the sketch to your Edison, then open the serial monitor.
+ 1. Once connected to the WiFi, your Edison will print out the URL you can use to connect to it.  Copy that into the address bar on your browser and it show a page with details of the light level and temperature.
+ 1. Vary the amount of light hitting the sensor and you will see both the light level value and the background colour of the web page change.
+
+> <strong>Note:</strong> The Edison board already has a web server running on it, which is why your web server URL ends in ":8080".  That tells your browser to look for the web server on port 8080 rather than the default port 80.  If you try removing the ":8080" you'll see the Edison's default web server page.
 
 # Links
 
