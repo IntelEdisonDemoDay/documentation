@@ -140,6 +140,23 @@ char pass[] = "secretPassword";   // your network password
 
 > <strong>Extra credit:</strong> Change the code to show the forecast temperature on the servo.  Modify the URL requested to get the forecast for your home town (rather than Liverpool, the current default).
 
+## Publishing sensor data to the Internet
+
+ 1. Intel have a service called IoTKit which lets you store and graph simple sensor data.  Go to the [IoTKit website](https://dashboard.enableiot.com/) and create an account so that you can use it.
+ 1. Next we need to run a few commands on your Edison through its console to set up the IoTKit agent.  Connect up the second micro-USB cable to your Edison and run `PuTTY` or `screen` like you did in step 4 of the initial installation instructions to connect to your Edison's console.
+ 1. Run `iotkit-admin test` to check that the Edison connectivity is okay.  You shouldn't see any errors output.
+ 1. Retrieve the Device ID for your Edison by running `iotkit-admin device-id`.
+ 1. On the IoTKit website, go to the device view and click `Add a new device`.  Copy the Device ID into both the ID and Gateway fields, and give your device a name.  Then click `Save` to create the device.
+ 1. Click on your account name (next to "IoT Analytics" in the bar across the top) and click the eye icon to show your Activation Code.
+ 1. Back in the Edison console, type `iotkit-admin activate <activation code>`, replacing `<activation code>` with the code from your IoTKit account.
+ 1. Now you're ready to start pushing data to IoTKit, so start the IoTKit agent by typing `systemctl start iotkit-agent`.
+ 1. The IoTKit agent is waiting for JSON strings to be delivered over either UDP or TCP containing sensor values.  The SimpleIoTKitTemperatureSensor sketch will send some suitable readings to the Agent.  Find it in File -> Sketchbook -> EdisonExamples -> SimpleIoTKitTemperatureSensor.
+ 1. Find the `ssid` and `pass` lines in the sketch, and update them to the relevant WiFi network.
+ 1. Connect the temperature sensor to socket A0.
+ 1. Upload the sketch to your Edison.
+ 1. On your IoTKit Dashboard in your web browser (click the "IoT Analytics" link to get back to it if need be) you should see the "Last hour observations" counter go up as the readings are pushed up to the cloud.
+ 1. If you click the "burger menu" in the top left corner of the dashboard, and choose "Charts" you will then be able to select your device and the temperature component and graph the data being recorded.
+
 # Links
 
  * [Arduino language reference](http://arduino.cc/en/Reference/HomePage)
@@ -149,6 +166,7 @@ char pass[] = "secretPassword";   // your network password
    - [Windows](https://communities.intel.com/docs/DOC-23192)
    - [Mac](https://communities.intel.com/docs/DOC-23193)
    - [Linux](https://communities.intel.com/docs/DOC-23200)
+ * [Intel IoTKit sample code](https://github.com/enableiot/iotkit-samples)
  * [Intel IoT Developer Zone](https://software.intel.com/en-us/iot)
  * [Met Office API reference](http://www.metoffice.gov.uk/datapoint/support/api-reference)
 
