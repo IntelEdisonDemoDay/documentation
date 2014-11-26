@@ -130,9 +130,17 @@ char pass[] = "secretPassword";   // your network password
 
 > <strong>Note:</strong> The Edison board already has a web server running on it, which is why your web server URL ends in ":8080".  That tells your browser to look for the web server on port 8080 rather than the default port 80.  If you try removing the ":8080" you'll see the Edison's default web server page.
 
-# Links
+## Scraping web pages and talking to APIs
 
-FIXME Link to Grove kit datasheets?
+ 1. Next we'll use the Met Office API to download the weather forecast and extract some details from it.  Open the WeatherWatch sketch: File -> Sketchbook -> EdisonExamples -> WeatherWatch.
+ 1. Find the `ssid` and `pass` lines in the sketch, and update them to the relevant WiFi network.
+ 1. Connect the servo to socket D3.  The sketch will download a web page from the Met Office's server, in a similar way to the simple web client earlier.  However, rather than print out the downloaded page it uses `find` call to search through the response and `parseInt` to convert the text into values that can be used to show the conditions forecast by using the servo as a pointer.
+ 1. Upload the sketch to your Edison, then open the serial monitor.
+ 1. Once connected to the WiFi, your Edison will output some of the forecast details as it parses the results, and then will move the servo to point to one of six different weather types.
+
+> <strong>Extra credit:</strong> Change the code to show the forecast temperature on the servo.  Modify the URL requested to get the forecast for your home town (rather than Liverpool, the current default).
+
+# Links
 
  * [Arduino language reference](http://arduino.cc/en/Reference/HomePage)
  * [The Grove Starter Kit Plus](http://www.seeedstudio.com/wiki/Grove_-_Starter_Kit_V2.0) website, and [the official location for the example code](https://github.com/Seeed-Studio/Sketchbook_Starter_Kit_V2.0)
@@ -142,5 +150,6 @@ FIXME Link to Grove kit datasheets?
    - [Mac](https://communities.intel.com/docs/DOC-23193)
    - [Linux](https://communities.intel.com/docs/DOC-23200)
  * [Intel IoT Developer Zone](https://software.intel.com/en-us/iot)
+ * [Met Office API reference](http://www.metoffice.gov.uk/datapoint/support/api-reference)
 
 
