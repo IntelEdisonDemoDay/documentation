@@ -4,7 +4,7 @@ This repository holds all the information for the [Intel Edison Demo Day](http:/
 
 It collects together all the code, etc. that we'll be using on the day and includes the steps that we'll be running through as we explore the Edison board.
 
-## Respository contents
+## Repository contents
 
   * Arduino/Sketchbook: Example code.  Copy the contents into your Arduino sketchbook folder.
   * Arduino/IDE_patches: Updates to the Intel Edison Arduino IDE v1.0.4 to fix a couple of small bugs
