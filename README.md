@@ -169,5 +169,12 @@ char pass[] = "secretPassword";   // your network password
  * [Intel IoTKit sample code](https://github.com/enableiot/iotkit-samples)
  * [Intel IoT Developer Zone](https://software.intel.com/en-us/iot)
  * [Met Office API reference](http://www.metoffice.gov.uk/datapoint/support/api-reference)
+ * [Edison community forum](https://communities.intel.com/community/makers/edison)
+
+And if you want to skip the Arduino IDE and play around with Node.js or Python and the Edison then these links might help
+
+ * [mraa](https://github.com/intel-iot-devkit/mraa) is the low-level API to access the GPIO pins, etc. from languages like Node.js
+ * [upm](https://github.com/intel-iot-devkit/upm) sits on top of mraa and provides a set of libraries for common sensors, IO chips, etc.
+ * [Getting started with Intel DevKit and XDK](https://software.intel.com/en-us/html5/documentation/getting-started-with-intel-xdk-iot-edition) - if you want to try out the Intel XDK development environment
 
 
