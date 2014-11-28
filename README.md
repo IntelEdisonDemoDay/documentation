@@ -15,7 +15,7 @@ It collects together all the code, etc. that we'll be using on the day and inclu
  * 10:00 Introduction to the day by Ana Bradley of designswarm
  * 10:15 What is the Intel® Edison
  * 10:25 Beginners tutorial for Intel® Edison by Adrian McEwen
-   - Install the Edison Arduino environmnet
+   - Install the Edison Arduino environment
    - Get blink working on the Edison
    - Copy the day's examples, etc. into the right place
    - Hooking up sensors
