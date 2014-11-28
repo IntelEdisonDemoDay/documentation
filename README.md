@@ -49,8 +49,6 @@ It collects together all the code, etc. that we'll be using on the day and inclu
    * [Mac](https://communities.intel.com/docs/DOC-23148)
    * [Linux](https://communities.intel.com/docs/DOC-23149)
 
-FIXME John, do we need any drivers for Mac?
-FIXME John, does the Mac come with ability to open zip files by default?
     Your Edison boards have already been flashed with the latest image, so you don't need to worry about that.  On Windows, if you need something to open the .7z file containing the Arduino IDE you can find the 7-zip software to install in the 7-zip folder.
 
  1. In the Arduino IDE, open File -> Preferences.  Make a note of the sketchbook location (it's most likely to be an Arduino folder in your home directory)
