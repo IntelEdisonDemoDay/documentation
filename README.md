@@ -140,7 +140,7 @@ char pass[] = "secretPassword";   // your network password
 
 ## Publishing sensor data to the Internet
 
- 1. Intel have a service called IoTKit which lets you store and graph simple sensor data.  Go to the [IoTKit website](https://dashboard.enableiot.com/) and create an account so that you can use it.
+ 1. Intel have a service called IoTKit which lets you store and graph simple sensor data.  Go to the [IoTKit website](https://dashboard.us.enableiot.com/) and create an account so that you can use it.
  1. Next we need to run a few commands on your Edison through its console to set up the IoTKit agent.  Connect up the second micro-USB cable to your Edison and run `PuTTY` or `screen` like you did in step 4 of the initial installation instructions to connect to your Edison's console.
  1. Run `iotkit-admin test` to check that the Edison connectivity is okay.  You shouldn't see any errors output.
  1. Retrieve the Device ID for your Edison by running `iotkit-admin device-id`.
