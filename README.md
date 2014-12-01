@@ -104,7 +104,7 @@ Now we'll look at ways to get your Edison board to interact with the Internet.
 
 ## Downloading a web page
 
- 1. Open the WiFiWebClient sketch.  File -> Examples -> WiFi -> WiFiWebClientRepeating.
+ 1. Open the WiFiWebClient sketch.  File -> Examples -> WiFi -> WiFiWebClient.
  1. We need to tell it the details of the WiFi network we want to connect to.  Find the lines
 ```
 char ssid[] = "yourNetwork";      //  your network SSID (name) 
